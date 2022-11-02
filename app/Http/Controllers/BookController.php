@@ -16,6 +16,7 @@ class BookController extends Controller
     {
         //return Book::paginate();
         return Book::all();
+        //return Book::find(1);
     }
 
     /**
