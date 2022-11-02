@@ -58,4 +58,24 @@ class BookApiTest extends TestCase
             'title' => 'My new book'
         ]);
     }
+
+    /** @test */
+    public function can_update_books()
+    {
+        $book = Book::factory()->create();
+
+        $this->patchJson(route('books.update', $book), [
+
+        ])->assertJsonValidationErrorFor('title');
+
+        $this->patchJson(route('books.update', $book), [
+            'title' => 'Edited book'
+        ])->assertJsonFragment([
+            'title' => 'Edited book'
+        ]);
+            
+        $this->assertDatabaseHas('books', [
+            'title' => 'Edited book'
+        ]);
+    }
 }
